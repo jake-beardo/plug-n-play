@@ -1,16 +1,7 @@
 import { Actor, HttpAgent, ActorSubclass } from "@dfinity/agent";
 import { getAccountIdentifier } from "../utils/identifierUtils.js";
 import { AuthClient, IdbStorage } from "@dfinity/auth-client";
-import { Wallet } from '../../types';
-
-
-
-const APPLICATION_NAME = "MicroDAO";
-const APPLICATION_LOGO_URL = "TODO";
-const APP_META = `applicationName=${APPLICATION_NAME}&applicationLogo=${APPLICATION_LOGO_URL}`;
-const AUTH_PATH = `/authenticate/?${APP_META}#authorize`;
-const NFID_ORIGIN = "https://nfid.one";
-const NFID_AUTH_URL = NFID_ORIGIN + AUTH_PATH;
+import { Wallet } from "../../types";
 
 const NFID_LOGIN_CONFIG = {
   windowOpenerFeatures:
@@ -18,7 +9,6 @@ const NFID_LOGIN_CONFIG = {
     `top=${window.screen.height / 2 - 705 / 2},` +
     `toolbar=0,location=0,menubar=0,width=525,height=705`,
 };
-
 
 export class NFIDAdapter implements Wallet.AdapterInterface {
   name: string;
@@ -53,7 +43,7 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
     return true;
   }
 
-  async connect(config: Wallet.AdapterConfig): Promise<Wallet.Account> {
+  async connect(config: Wallet.AdapterConfig, applicationName: string = 'DefaultAppName', applicationLogoUrl: string = 'DefaultLogoUrl'): Promise<Wallet.Account> {
     if (!this.authClient) {
       this.authClient = await AuthClient.create({
         storage: new IdbStorage(),
@@ -64,13 +54,19 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
         },
       });
     }
-
-    const isConnected = await this.isConnected();
+  
+    // Use default values if applicationName or applicationLogoUrl are not provided
+    const APP_META = `applicationName=${encodeURIComponent(applicationName)}&applicationLogo=${encodeURIComponent(applicationLogoUrl)}`;
+    const AUTH_PATH = `/authenticate/?${APP_META}#authorize`;
+    const NFID_ORIGIN = "https://nfid.one";
+    const NFID_AUTH_URL = NFID_ORIGIN + AUTH_PATH;
+  
+    const isConnected = await this.isConnected();  
 
     if (!isConnected) {
       await new Promise<void>((resolve, reject) => {
         this.authClient?.login({
-          identityProvider: config.identityProvider || this.url,
+          identityProvider: NFID_AUTH_URL,
           onSuccess: () => resolve(),
           onError: reject,
           maxTimeToLive: BigInt(Date.now() + 30 * 24 * 60 * 60 * 1e9), // 30 days in nanoseconds
@@ -96,7 +92,6 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
     };
   }
 
-
   async disconnect(): Promise<void> {
     if (this.authClient) {
       this.readyState = "Loadable";
@@ -106,13 +101,18 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
     }
   }
 
-  async createActor<T>(canisterId: string, idl: any): Promise<ActorSubclass<T>> {
+  async createActor<T>(
+    canisterId: string,
+    idl: any
+  ): Promise<ActorSubclass<T>> {
     if (!canisterId || !idl) {
       throw new Error("Canister ID and Interface Factory are required");
     }
 
     if (!this.agent) {
-      throw new Error("Agent is not initialized. Ensure the wallet is connected.");
+      throw new Error(
+        "Agent is not initialized. Ensure the wallet is connected."
+      );
     }
 
     return Actor.createActor(idl, { agent: this.agent, canisterId });
@@ -130,7 +130,7 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
     return agent;
   }
 
-  async getAccountId(): Promise<string|boolean> {
+  async getAccountId(): Promise<string | boolean> {
     if (!this.authClient || !this.agent) {
       throw new Error("Wallet is not connected or initialized");
     }
@@ -163,7 +163,7 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
     return identity.getPrincipal().toString();
   }
 
-  async isConnected(): Promise<boolean|undefined> {
+  async isConnected(): Promise<boolean | undefined> {
     return await this.authClient?.isAuthenticated();
   }
 }
