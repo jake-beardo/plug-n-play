@@ -1,5 +1,6 @@
+import { Wallet } from '../../types';
 import { NNSAdapter } from './NNSAdapter';
 import { PlugAdapter } from './PlugAdapter';
-import { Wallet } from '../../types';
+import { NFIDAdapter } from './NFIDAdapter';
 export declare const walletList: Wallet.AdapterInfo[];
-export { NNSAdapter, PlugAdapter };
+export { NNSAdapter, PlugAdapter, NFIDAdapter, };

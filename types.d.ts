@@ -1,6 +1,7 @@
 // Adapters
 import { NNSAdapter } from "./src/adapters/NNSAdapter";
 import { PlugAdapter } from "./src/adapters/PlugAdapter";
+import { NFIDAdapter } from "./src/adapters/NFIDAdapter";
 import { BatchTransact } from "./src/utils/batchTransact";  // Import BatchTransact if not already imported
 import { AnonymousIdentity } from "@dfinity/agent"; // Import these if they're used
 import { Principal } from "@dfinity/principal";    // Import these if they're used
@@ -101,6 +102,7 @@ export namespace Wallet {
   export type Adapters = {
     nns: typeof NNSAdapter;
     plug: typeof PlugAdapter;
+    nfid: typeof NFIDAdapter;
   };
 
   const adapters: Adapters;

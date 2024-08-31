@@ -15,6 +15,7 @@ Plug N Play simplifies the integration of Internet Computer wallets into your de
 
 - Internet Identity
 - Plug
+- NFID
 - More to be added
 
 ## Installation
