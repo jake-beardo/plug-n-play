@@ -1,7 +1,8 @@
 import { ActorSubclass } from '@dfinity/agent';
 import { Wallet } from '../../types';
+import { BaseAdapter } from './adapter.base';
 
-export class PlugAdapter implements Wallet.AdapterInterface {
+export class PlugAdapter extends BaseAdapter {
   getBalance(): Promise<bigint> {
     throw new Error('Method not implemented.');
   }
@@ -14,13 +15,14 @@ export class PlugAdapter implements Wallet.AdapterInterface {
   name: string;
   logo: string;
   readyState: string;
-  url: string;
+  url!: string;
+
 
   constructor() {
+    super("https://plugwallet.ooo/");
     this.name = 'Plug';
     this.logo = 'path_to_plug_logo.svg';
     this.readyState = "NotDetected";
-    this.url = "https://plugwallet.ooo/";
   }
 
   async isAvailable(): Promise<boolean> {

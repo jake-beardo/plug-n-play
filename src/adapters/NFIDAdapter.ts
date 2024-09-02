@@ -2,6 +2,7 @@ import { Actor, HttpAgent, ActorSubclass } from "@dfinity/agent";
 import { getAccountIdentifier } from "../utils/identifierUtils.js";
 import { AuthClient, IdbStorage } from "@dfinity/auth-client";
 import { Wallet } from "../../types";
+import { BaseAdapter } from "./adapter.base.js";
 
 const NFID_LOGIN_CONFIG = {
   windowOpenerFeatures:
@@ -10,19 +11,20 @@ const NFID_LOGIN_CONFIG = {
     `toolbar=0,location=0,menubar=0,width=525,height=705`,
 };
 
-export class NFIDAdapter implements Wallet.AdapterInterface {
+export class NFIDAdapter extends BaseAdapter {
   name: string;
   logo: string;
   readyState: string;
-  url: string;
+  url!: string;
   private authClient: AuthClient | null;
   private agent: HttpAgent | null;
 
   constructor() {
+    // Pass the `url` to the base class constructor
+    super("https://nfid.one");
     this.name = "NFID";
     this.logo = "path_to_nns_logo.svg";
     this.readyState = "Loadable";
-    this.url = "https://nfid.one";
     this.authClient = null;
     this.agent = null;
   }
@@ -148,10 +150,6 @@ export class NFIDAdapter implements Wallet.AdapterInterface {
   }
 
   async getBalance(): Promise<bigint> {
-    throw new Error("Method not implemented.");
-  }
-
-  async transfer(params: Wallet.TransferParams): Promise<void> {
     throw new Error("Method not implemented.");
   }
 

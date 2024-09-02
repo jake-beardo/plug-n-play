@@ -21,7 +21,7 @@ export class TemplateAdapter extends Wallet.AdapterInterface {
   getBalance(): Promise<bigint> {
     throw new Error("Method not implemented.");
   }
-  transfer(params: Wallet.TransferParams): Promise<void> {
+  transfer(params: Wallet.TransferParams, canisterId?: string): Promise<bigint> {
     throw new Error("Method not implemented.");
   }
   createActor<T>(canisterId: string, idl: any): Promise<T> {

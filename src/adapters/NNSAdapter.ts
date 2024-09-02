@@ -2,20 +2,21 @@ import { Actor, HttpAgent, ActorSubclass } from "@dfinity/agent";
 import { getAccountIdentifier } from "../utils/identifierUtils.js";
 import { AuthClient } from "@dfinity/auth-client";
 import { Wallet } from '../../types';
+import { BaseAdapter } from "./adapter.base.js";
 
-export class NNSAdapter implements Wallet.AdapterInterface {
+export class NNSAdapter extends BaseAdapter {
   name: string;
   logo: string;
   readyState: string;
-  url: string;
+  url!: string;
   private authClient: AuthClient | null;
   private agent: HttpAgent | null;
 
   constructor() {
+    super("http://localhost:4943"); // Use the correct host in production
     this.name = "NNS";
     this.logo = "path_to_nns_logo.svg";
     this.readyState = "Loadable";
-    this.url = "http://localhost:4943"; // Use the correct host in production
     this.authClient = null;
     this.agent = null;
   }
@@ -132,10 +133,6 @@ export class NNSAdapter implements Wallet.AdapterInterface {
   }
 
   async getBalance(): Promise<bigint> {
-    throw new Error("Method not implemented.");
-  }
-
-  async transfer(params: Wallet.TransferParams): Promise<void> {
     throw new Error("Method not implemented.");
   }
 
