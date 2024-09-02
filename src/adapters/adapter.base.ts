@@ -29,9 +29,9 @@ export class BaseAdapter implements Wallet.AdapterInterface {
     );
 
     const balance = await actor.icrc1_balance_of({
-        owner: this.getPrincipal(),
-        subaccount: [],
-      });
+      owner: this.getPrincipal(),
+      subaccount: [],
+    });
 
     return balance;
   }
