@@ -72,7 +72,7 @@ export namespace Wallet {
     abstract isAvailable(): Promise<boolean>;
     abstract connect(config: AdapterConfig): Promise<Account>;
     abstract disconnect(): Promise<void>;
-    abstract getBalance(): Promise<bigint>;
+    abstract getBalance(canisterId?: string): Promise<bigint>;
     abstract transfer(params: TransferParams, canisterId?: string): Promise<bigint>;
     abstract createActor<T>(canisterId: string, idl: any): Promise<ActorSubclass<T>>; // Keep only one declaration
     abstract getAccountId(): Promise<string | boolean>;

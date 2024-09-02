@@ -149,10 +149,6 @@ export class NFIDAdapter extends BaseAdapter {
     return identity.getPrincipal().toString();
   }
 
-  async getBalance(): Promise<bigint> {
-    throw new Error("Method not implemented.");
-  }
-
   async whoAmI(): Promise<string> {
     if (!this.authClient || !this.agent) {
       throw new Error("Wallet is not connected or initialized");

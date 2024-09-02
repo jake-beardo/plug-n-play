@@ -3,9 +3,6 @@ import { Wallet } from '../../types';
 import { BaseAdapter } from './adapter.base';
 
 export class PlugAdapter extends BaseAdapter {
-  getBalance(): Promise<bigint> {
-    throw new Error('Method not implemented.');
-  }
   async isConnected(): Promise<boolean> {
     return await window.ic!.plug!.isConnected()
   }
