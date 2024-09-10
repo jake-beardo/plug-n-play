@@ -52,12 +52,17 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'node:buffer': 'buffer',
+      '@': path.resolve(__dirname, 'src'),
+      '@types': path.resolve(__dirname, 'src/types'),
+      '@src': path.resolve(__dirname, 'src'),
     },
   },
   plugins: [
     dts({
       insertTypesEntry: true,
+      compilerOptions: {
+        declaration: true,
+      },
     }),
     viteStaticCopy({
       targets: [

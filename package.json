@@ -1,10 +1,10 @@
 {
   "name": "@windoge98/plug-n-play",
-  "version": "0.0.3",
+  "version": "0.0.5-3",
   "description": "Wallet wrapper/adapter for connecting different wallets on the Internet Computer",
   "module": "dist/plug-n-play.es.js",
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/src/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/plug-n-play.es.js",
@@ -12,6 +12,7 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "type": "module",
   "files": [
     "dist"
   ],

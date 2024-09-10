@@ -7,6 +7,7 @@ import { NFIDAdapter } from "./NFIDAdapter";
 import dfinityLogo from "../../assets/dfinity.svg";
 import nfidLogo from "../../assets/nfid.svg";
 import plugLogo from "../../assets/plug.jpg"; 
+import bitfinityLogo from "../../assets/bitfinity.svg";
 
 export const walletList: Wallet.AdapterInfo[] = [
   {
