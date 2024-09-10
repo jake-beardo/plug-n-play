@@ -1,6 +1,7 @@
 // Adapters
 import { NNSAdapter } from "./src/adapters/NNSAdapter";
 import { PlugAdapter } from "./src/adapters/PlugAdapter";
+import { NFIDAdapter } from "./src/adapters/NFIDAdapter";
 import { BitfinityAdapter } from "./src/adapters/BitfinityAdapter";
 import { BatchTransact } from "./src/utils/batchTransact";
 import { AnonymousIdentity, HttpAgent } from "@dfinity/agent";
@@ -128,6 +129,7 @@ export namespace Wallet {
     nns: Adapter.Interface;
     plug: Adapter.Interface;
     bitfinity: Adapter.Interface;
+    nfid: Adapter.Interface;
   };
 }
 

@@ -2,10 +2,12 @@
 // Import adapters
 import { NNSAdapter } from "./NNSAdapter";
 import { PlugAdapter } from "./PlugAdapter";
-import { Wallet } from '../../types/index';
+import { NFIDAdapter } from "./NFIDAdapter";
+import { Wallet } from '../types/index';
 import dfinityLogo from "../../assets/dfinity.svg";
 import plugLogo from "../../assets/plug.jpg"; 
 import bitfinityLogo from "../../assets/bitfinity.svg";
+import nfidLogo from "../../assets/nfid.svg";
 
 export const walletList: Wallet.AdapterInfo[] = [
   {
@@ -20,10 +22,17 @@ export const walletList: Wallet.AdapterInfo[] = [
     icon: plugLogo,
     adapter: PlugAdapter,
   },
+  {
+    id: "nfid", 
+    name: "NFID Wallet",
+    icon: nfidLogo,
+    adapter: NFIDAdapter,
+  },
 
 ];
 
 export {
   NNSAdapter,
   PlugAdapter,
+  NFIDAdapter,
 };

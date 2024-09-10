@@ -24,11 +24,12 @@ const createPnP = vi.fn().mockImplementation(() => ({
 }));
 
 // Mock the entire index module
-vi.mock('../index', () => ({
+vi.mock('../src/index', () => ({
   createPnP,
   walletsList: [
     { id: 'nns', name: 'Internet Identity', icon: '/assets/dfinity.svg', adapter: expect.any(Function) },
-    { id: 'plug', name: 'Plug Wallet', icon: '/assets/plug.jpg', adapter: expect.any(Function) }
+    { id: 'plug', name: 'Plug Wallet', icon: '/assets/plug.jpg', adapter: expect.any(Function) },
+    { id: 'nfid', name: 'NFID Wallet', icon: '/assets/nfid.svg', adapter: expect.any(Function) }
   ],
   BatchTransact,
   principalIdFromHex: vi.fn(),
@@ -42,11 +43,11 @@ vi.mock('../index', () => ({
 }));
 
 describe('index.ts', () => {
-  let indexModule: typeof import('../index');
+  let indexModule: typeof import('../src/index');
 
   beforeEach(async () => {
     vi.resetModules();
-    indexModule = await import('../index');
+    indexModule = await import('../src/index');
   });
 
   it('should export createPnP', () => {
@@ -58,7 +59,8 @@ describe('index.ts', () => {
     expect(indexModule.walletsList).toBeDefined();
     expect(indexModule.walletsList).toEqual([
       { id: 'nns', name: 'Internet Identity', icon: '/assets/dfinity.svg', adapter: expect.any(Function) },
-      { id: 'plug', name: 'Plug Wallet', icon: '/assets/plug.jpg', adapter: expect.any(Function) }
+      { id: 'plug', name: 'Plug Wallet', icon: '/assets/plug.jpg', adapter: expect.any(Function) },
+      { id: 'nfid', name: 'NFID Wallet', icon: '/assets/nfid.svg', adapter: expect.any(Function) }
     ]);
   });
 
@@ -99,7 +101,7 @@ describe('index.ts', () => {
         },
       } as any;
 
-      indexModule = await import("../index");
+      indexModule = await import("../src/index");
     });
 
     afterEach(() => {
