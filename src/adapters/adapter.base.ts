@@ -1,7 +1,8 @@
 import { ActorSubclass } from "@dfinity/agent";
-import { Wallet } from "../../types";
+import { Wallet } from '../types';
 import { ICRC1_IDL } from "../did";
 import { unwrapResult } from "../utils/resultHelper";
+import { Principal } from "@dfinity/principal";
 
 export class BaseAdapter implements Wallet.AdapterInterface {
   public url: string;
@@ -44,7 +45,7 @@ export class BaseAdapter implements Wallet.AdapterInterface {
     throw new Error("Not implemented");
   }
 
-  async getPrincipal(): Promise<string | boolean> {
+  async getPrincipal(): Promise<Principal | null> {
     throw new Error("Not implemented");
   }
 

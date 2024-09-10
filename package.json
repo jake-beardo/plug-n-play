@@ -34,6 +34,7 @@
     "@dfinity/candid": "^2.0.0",
     "@dfinity/identity": "^2.0.0",
     "@dfinity/principal": "^2.0.0",
+    "@dfinity/utils": "^2.5.0",
     "@fort-major/msq-client": "^0.3.13",
     "@fort-major/msq-shared": "^0.3.3",
     "buffer": "^6.0.3",
