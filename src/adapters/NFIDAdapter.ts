@@ -8,12 +8,12 @@ import { Principal } from "@dfinity/principal";
 import { ICRC1_IDL } from "../did/icrc1.idl.js";
 import { hexStringToUint8Array, principalToSubAccount } from "@dfinity/utils";
 
-const NFID_LOGIN_CONFIG = {
-  windowOpenerFeatures:
-    `left=${window.screen.width / 2 - 525 / 2}, ` +
-    `top=${window.screen.height / 2 - 705 / 2},` +
-    `toolbar=0,location=0,menubar=0,width=525,height=705`,
-};
+// const NFID_LOGIN_CONFIG = {
+//   windowOpenerFeatures:
+//     `left=${window.screen.width / 2 - 525 / 2}, ` +
+//     `top=${window.screen.height / 2 - 705 / 2},` +
+//     `toolbar=0,location=0,menubar=0,width=525,height=705`,
+// };
 
 export class NFIDAdapter implements Adapter.Interface {
   name: string;
@@ -101,7 +101,7 @@ export class NFIDAdapter implements Adapter.Interface {
             reject(new Error("Authentication failed: " + error));
           },
           maxTimeToLive: BigInt(Date.now() + 30 * 24 * 60 * 60 * 1e9), // 30 days in nanoseconds
-          ...NFID_LOGIN_CONFIG,
+        //   ...NFID_LOGIN_CONFIG,
         });
       });
     }
@@ -118,7 +118,7 @@ export class NFIDAdapter implements Adapter.Interface {
         host,
       });
       // Fetch the root key in development mode
-      if (this.url.includes("localhost") || this.url.includes("127.0.0.1")) {
+      if (host.includes("localhost") || host.includes("127.0.0.1")) {
         await this.agent.fetchRootKey();
       }
       return {
@@ -140,11 +140,14 @@ export class NFIDAdapter implements Adapter.Interface {
         "Agent is not initialized. Ensure the wallet is connected."
       );
     }
+    console.log("agent", canisterId, account, this.agent);
     const actor = Actor.createActor(ICRC1_IDL, {
       agent: this.agent,
       canisterId,
     });
-    return (await actor.icrc1_balance_of(account)) as BigInt;
+    console.log("actor", actor);
+
+    return (1000n) as BigInt;
   }
 
   async disconnect(): Promise<void> {

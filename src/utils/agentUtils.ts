@@ -1,6 +1,5 @@
 // src/utils/agentUtils.ts
 
-import { Wallet, ICRC } from '../../types';
 import { HttpAgent, HttpAgentOptions } from '@dfinity/agent';
 
 export function createHttpAgent(options: HttpAgentOptions): HttpAgent {
